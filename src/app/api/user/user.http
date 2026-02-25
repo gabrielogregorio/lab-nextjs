@@ -1,0 +1,16 @@
+@baseUrl = http://localhost:3000
+
+### 
+
+@name = getUser
+GET {{baseUrl}}/api/user HTTP/1.1
+
+###
+
+PATCH  {{baseUrl}}/api/user HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Example",
+  "image": "ImageExample222"
+}
