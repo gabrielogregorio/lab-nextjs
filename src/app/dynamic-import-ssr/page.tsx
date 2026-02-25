@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-const DynamicClientSideComponent = dynamic(() => import("../../Components/ClientSideComponent").then(module => module.ClientSideComponent), {
+const DynamicClientSideComponent = dynamic(() => import("./ClientSideComponent").then(module => module.ClientSideComponent), {
     ssr: false, // Não pré renderiza no servidor
     loading: () => <div className="text-white">Loading...</div>
 }
