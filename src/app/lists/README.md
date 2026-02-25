@@ -1,0 +1,1 @@
+Compara o tamanho de listas geradas no Servidor vs Client. Nesse listas retornadas do servidor se mostraram mais pesadas, mesmo com a falta de javascript. Variandos os dados é possivel obter outros valores
