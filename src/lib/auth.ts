@@ -1,7 +1,9 @@
 // Cada provider cria um usuário novo
 import NextAuth, { DefaultSession } from 'next-auth';
 import GitHub from 'next-auth/providers/github';
-import { randomUUID } from 'crypto';
+
+// está rodando no edge, não pode conter imports do node, tudo deve ser compatível com edge runtime
+
 
 declare module 'next-auth' {
   interface Session {
@@ -33,7 +35,7 @@ async function exampleUpsertUserWithAccount(params: {
     providerAccountId,
   });
 
-  const internalUserId = randomUUID(); // create or use db with same provider and providerAccountId || this example is mock
+  const internalUserId = crypto.randomUUID(); // create or use db with same provider and providerAccountId || this example is mock
   console.log('[AUTH_USER_CREATED]', {
     internalUserId,
     provider,
@@ -84,26 +86,25 @@ export const {
 
   // custom callback
   callbacks: {
+    // Roda sempre, mesmo aós o primeiro login
     async jwt({ token, account, user }) {
-      // run in first login
-      if (!account || !account.providerAccountId) {
-        throw new Error('Missing account or providerAccountId');
+      // Só roda no primeiro login OAuth
+      if (account && account.providerAccountId) {
+        const provider = account.provider;
+        const providerAccountId = account.providerAccountId;
+
+        const { internalUserId } = await exampleUpsertUserWithAccount({
+          provider,
+          providerAccountId,
+          name: user?.name,
+          email: user?.email,
+          image: user?.image,
+        });
+
+        token.internalUserId = internalUserId;
+        token.provider = provider;
+        token.providerAccountId = providerAccountId;
       }
-
-      const provider = account.provider; // external id
-      const providerAccountId = account.providerAccountId; // provider external id
-
-      const { internalUserId } = await exampleUpsertUserWithAccount({
-        provider,
-        providerAccountId,
-        name: user?.name,
-        email: user?.email,
-        image: user?.image,
-      });
-
-      token.internalUserId = internalUserId;
-      token.provider = provider;
-      token.providerAccountId = providerAccountId;
 
       return token;
     },

@@ -1,0 +1,12 @@
+export const TAG_NAME_POST_LIST = 'posts-list';
+
+export const ONE_SECOND_IN_SECONDS = 1;
+export const ONE_MINUTE_IN_SECONDS = 60 * ONE_SECOND_IN_SECONDS;
+export const ONE_HOUR_IN_SECONDS = 60 * ONE_MINUTE_IN_SECONDS;
+export const ONE_DAY_IN_SECONDS = 24 * ONE_HOUR_IN_SECONDS;
+
+export const AB_TEST_DURATION_IN_DAYS = 30;
+
+export const AB_COOKIE_MAX_AGE_IN_SECONDS = AB_TEST_DURATION_IN_DAYS * ONE_DAY_IN_SECONDS;
+
+export const AB_COOKIE_NAME = 'ab-group';
