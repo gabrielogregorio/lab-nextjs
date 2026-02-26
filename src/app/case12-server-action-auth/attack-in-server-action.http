@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:3000
+@authjsSessionToken=
+
+### 
+
+@name = Attack in Server Action with Authentication
+POST {{baseUrl}}/case12-server-action-auth HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryecIRP8QWUBapi6IA
+Next-Action: 4075e3f772351de43753faf697e6ac9aa7fd96b433
+Cookie: authjs.session-token={{authjsSessionToken}}
+
+
+------WebKitFormBoundaryecIRP8QWUBapi6IA
+Content-Disposition: form-data; name="1_note"
+
+slq injection example
+------WebKitFormBoundaryecIRP8QWUBapi6IA
+Content-Disposition: form-data; name="0"
+
+["$K1"]
+------WebKitFormBoundaryecIRP8QWUBapi6IA--
